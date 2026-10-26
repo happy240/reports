@@ -1,0 +1,10 @@
+[server]
+address = "0.0.0.0"
+port = 8501
+headless = true
+fileWatcherType = "none"
+# 由 Nginx 在独立域名上终止 TLS，关闭 CORS 限制才能建立 WebSocket
+enableCORS = false
+
+[browser]
+gatherUsageStats = false

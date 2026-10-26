@@ -1,0 +1,407 @@
+{
+  "generated_at": "2026-10-22T23:15:51",
+  "subject": {
+    "display_name": "喜越农场",
+    "aliases": [
+      "喜越农业",
+      "喜越",
+      "XYNY"
+    ],
+    "note": "库内正式名多为「喜越农业」；rockai.zhny_farm.id=8, farm_short_name=XYNY"
+  },
+  "monitor": {
+    "database": "monitor",
+    "farm_values": [
+      "喜越农业",
+      "太仓总部，喜越农业"
+    ],
+    "summary": {
+      "device_count": 21,
+      "device_by_type": {
+        "weather": 1,
+        "environment": 17,
+        "tail_water": 3
+      },
+      "tables_with_data": [
+        "sensor_device",
+        "device_data",
+        "tail_water_irrigation_summary"
+      ]
+    },
+    "tables_with_data": {
+      "sensor_device": {
+        "role": "设备主数据",
+        "row_count": 21,
+        "join": "farm LIKE '%喜越%'",
+        "time_range": null
+      },
+      "device_data": {
+        "role": "传感器时序原始数据",
+        "row_count": 95412,
+        "join": "device_id IN (喜越 sensor_device.id)",
+        "time_range": {
+          "min": "2026-07-02 17:50:09",
+          "max": "2026-10-22 23:15:41"
+        }
+      },
+      "tail_water_irrigation_summary": {
+        "role": "尾水单次灌溉汇总",
+        "row_count": 443,
+        "join": "device_id / device_sn 关联喜越尾水设备",
+        "time_range": {
+          "irrigation_start_time": {
+            "min": "2026-09-27 21:00:00",
+            "max": "2026-10-22 19:56:00"
+          },
+          "report_date": {
+            "min": "2026-09-27",
+            "max": "2026-10-22"
+          }
+        }
+      }
+    },
+    "devices": [
+      {
+        "id": 32,
+        "sn": "40419014",
+        "type": "weather",
+        "name": "室外气象站",
+        "farm": "太仓总部，喜越农业",
+        "region": "室外",
+        "device_data_rows": 32294
+      },
+      {
+        "id": 39,
+        "sn": "24314963",
+        "type": "environment",
+        "name": "A1",
+        "farm": "喜越农业",
+        "region": "A1",
+        "device_data_rows": 6660
+      },
+      {
+        "id": 40,
+        "sn": "24315009",
+        "type": "environment",
+        "name": "A2",
+        "farm": "喜越农业",
+        "region": "A2",
+        "device_data_rows": 3147
+      },
+      {
+        "id": 41,
+        "sn": "24315004",
+        "type": "environment",
+        "name": "B1",
+        "farm": "喜越农业",
+        "region": "B1",
+        "device_data_rows": 5550
+      },
+      {
+        "id": 42,
+        "sn": "24314968",
+        "type": "environment",
+        "name": "B2",
+        "farm": "喜越农业",
+        "region": "B2",
+        "device_data_rows": 4919
+      },
+      {
+        "id": 43,
+        "sn": "24315001",
+        "type": "environment",
+        "name": "B4",
+        "farm": "喜越农业",
+        "region": "B4",
+        "device_data_rows": 5529
+      },
+      {
+        "id": 44,
+        "sn": "24315002",
+        "type": "environment",
+        "name": "B5",
+        "farm": "喜越农业",
+        "region": "B5",
+        "device_data_rows": 5410
+      },
+      {
+        "id": 45,
+        "sn": "24314986",
+        "type": "environment",
+        "name": "B6",
+        "farm": "喜越农业",
+        "region": "B6",
+        "device_data_rows": 3809
+      },
+      {
+        "id": 46,
+        "sn": "24314965",
+        "type": "environment",
+        "name": "B7",
+        "farm": "喜越农业",
+        "region": "B7",
+        "device_data_rows": 3799
+      },
+      {
+        "id": 47,
+        "sn": "24314980",
+        "type": "environment",
+        "name": "B8",
+        "farm": "喜越农业",
+        "region": "B8",
+        "device_data_rows": 3569
+      },
+      {
+        "id": 48,
+        "sn": "24314982",
+        "type": "environment",
+        "name": "B9",
+        "farm": "喜越农业",
+        "region": "B9",
+        "device_data_rows": 3698
+      },
+      {
+        "id": 49,
+        "sn": "24314978",
+        "type": "environment",
+        "name": "C1",
+        "farm": "喜越农业",
+        "region": "C1",
+        "device_data_rows": 2
+      },
+      {
+        "id": 50,
+        "sn": "24314975",
+        "type": "environment",
+        "name": "C2",
+        "farm": "喜越农业",
+        "region": "C2",
+        "device_data_rows": 1
+      },
+      {
+        "id": 51,
+        "sn": "24314997",
+        "type": "environment",
+        "name": "C3",
+        "farm": "喜越农业",
+        "region": "C3",
+        "device_data_rows": 1
+      },
+      {
+        "id": 52,
+        "sn": "24315006",
+        "type": "environment",
+        "name": "C4",
+        "farm": "喜越农业",
+        "region": "C4",
+        "device_data_rows": 6265
+      },
+      {
+        "id": 53,
+        "sn": "2637050603",
+        "type": "environment",
+        "name": "A3室内气象站",
+        "farm": "喜越农业",
+        "region": "A3",
+        "device_data_rows": 3043
+      },
+      {
+        "id": 54,
+        "sn": "2637050602",
+        "type": "environment",
+        "name": "B3室内气象站",
+        "farm": "喜越农业",
+        "region": "B3",
+        "device_data_rows": 3046
+      },
+      {
+        "id": 55,
+        "sn": "2637050601",
+        "type": "environment",
+        "name": "B7室内气象站",
+        "farm": "喜越农业",
+        "region": "B7",
+        "device_data_rows": 3047
+      },
+      {
+        "id": 56,
+        "sn": "2636040101",
+        "type": "tail_water",
+        "name": "A3尾水设备",
+        "farm": "喜越农业",
+        "region": "A3",
+        "device_data_rows": 449
+      },
+      {
+        "id": 57,
+        "sn": "2636040102",
+        "type": "tail_water",
+        "name": "B3尾水设备",
+        "farm": "喜越农业",
+        "region": "B3",
+        "device_data_rows": 475
+      },
+      {
+        "id": 58,
+        "sn": "2636040105",
+        "type": "tail_water",
+        "name": "A3尾水设备2",
+        "farm": "喜越农业",
+        "region": "A3",
+        "device_data_rows": 699
+      }
+    ],
+    "no_data_tables": [
+      "assistant_report",
+      "crop_phenotype_records",
+      "farm_work_records",
+      "farming_record",
+      "irrigation_data",
+      "phenotyping_data",
+      "plant_protection_data",
+      "plant_protection_records",
+      "substrate_humidity_records",
+      "tailing_data"
+    ]
+  },
+  "rockai": {
+    "database": "rockai",
+    "farm_id": 8,
+    "farm_name": "喜越农业",
+    "farm_short_name": "XYNY",
+    "area_ids": [
+      114,
+      115,
+      116
+    ],
+    "areas": [
+      {
+        "id": 114,
+        "area_name": "C区",
+        "grow_crops": "草莓",
+        "area": 32.68
+      },
+      {
+        "id": 115,
+        "area_name": "B区",
+        "grow_crops": "草莓",
+        "area": 60.82
+      },
+      {
+        "id": 116,
+        "area_name": "A区",
+        "grow_crops": "草莓",
+        "area": 19.87
+      }
+    ],
+    "users": [
+      {
+        "id": 40,
+        "username": "XYNYguangai",
+        "username_chn": "灌溉主管"
+      },
+      {
+        "id": 41,
+        "username": "XYNYzhibao",
+        "username_chn": "植保主管"
+      },
+      {
+        "id": 42,
+        "username": "XYNYnongshi",
+        "username_chn": "农事主管"
+      }
+    ],
+    "tables_with_data": {
+      "zhny_ai_history": {
+        "role": "AI 对话/历史",
+        "row_count": 7,
+        "join": "farm_id=8"
+      },
+      "zhny_app_login_info": {
+        "role": "App 登录记录",
+        "row_count": 8,
+        "join": "farm_id=8"
+      },
+      "zhny_area": {
+        "role": "种植分区",
+        "row_count": 3,
+        "join": "farm_id=8"
+      },
+      "zhny_program_area": {
+        "role": "灌溉/种植程序区",
+        "row_count": 1,
+        "join": "farm_id=8"
+      },
+      "zhny_task": {
+        "role": "任务",
+        "row_count": 123,
+        "join": "farm_id=8"
+      },
+      "zhny_task_push": {
+        "role": "任务推送",
+        "row_count": 30,
+        "join": "farm_id=8"
+      },
+      "zhny_task_rule_config": {
+        "role": "任务规则配置",
+        "row_count": 1,
+        "join": "farm_id=8"
+      },
+      "zhny_user": {
+        "role": "农场用户账号",
+        "row_count": 3,
+        "join": "farm_id=8"
+      }
+    },
+    "notable_empty": [
+      "zhny_device_config",
+      "zhny_env_sensor_data",
+      "zhny_weather_sensor_data",
+      "zhny_farm_record",
+      "zhny_irrigation_plan",
+      "cloud_farm_records",
+      "cloud_daily_reports",
+      "cloud_weekly_reports"
+    ]
+  },
+  "cross_db": {
+    "name_alignment": {
+      "monitor.sensor_device.farm": [
+        "喜越农业",
+        "太仓总部，喜越农业"
+      ],
+      "rockai.zhny_farm": {
+        "id": 8,
+        "farm_name": "喜越农业",
+        "farm_short_name": "XYNY"
+      }
+    },
+    "gap": [
+      "喜越传感器时序在 monitor.device_data，rockai 无 farm_id=8 的环境/气象数据",
+      "rockai.zhny_device_config 无喜越设备，两端设备主数据未打通",
+      "monitor 农事/表型/灌溉日表无喜越；rockai 农事记录/灌溉计划亦为空，仅有任务体系"
+    ],
+    "suggested_joins_for_dev": [
+      {
+        "purpose": "monitor 设备列表",
+        "sql": "SELECT * FROM sensor_device WHERE farm LIKE '%喜越%'"
+      },
+      {
+        "purpose": "monitor 时序",
+        "sql": "SELECT d.* FROM device_data d JOIN sensor_device s ON s.id=d.device_id WHERE s.farm LIKE '%喜越%'"
+      },
+      {
+        "purpose": "monitor 尾水汇总",
+        "sql": "SELECT t.* FROM tail_water_irrigation_summary t JOIN sensor_device s ON s.id=t.device_id WHERE s.farm LIKE '%喜越%'"
+      },
+      {
+        "purpose": "rockai 农场与分区",
+        "sql": "SELECT f.*, a.* FROM zhny_farm f LEFT JOIN zhny_area a ON a.farm_id=f.id WHERE f.id=8"
+      },
+      {
+        "purpose": "rockai 任务",
+        "sql": "SELECT * FROM zhny_task WHERE farm_id=8"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+services:
+  reports:
+    build: .
+    image: reports:local
+    container_name: xiyue-reports
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./.env:/app/.env:ro

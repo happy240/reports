@@ -1,0 +1,2983 @@
+{
+  "generated_at": "2026-10-22T23:15:51",
+  "subject": {
+    "display_name": "喜越农场",
+    "aliases": [
+      "喜越农业",
+      "喜越",
+      "XYNY"
+    ],
+    "note": "库内正式名多为「喜越农业」；rockai.zhny_farm.id=8, farm_short_name=XYNY"
+  },
+  "databases": {
+    "monitor": {
+      "source": "db1",
+      "database": "monitor",
+      "identity": {
+        "match_field": "farm / device association",
+        "farm_values": [
+          "喜越农业",
+          "太仓总部，喜越农业"
+        ]
+      },
+      "tables": {
+        "sensor_device": {
+          "table": "sensor_device",
+          "role": "设备主数据",
+          "join": "farm LIKE '%喜越%'",
+          "row_count": 21,
+          "has_data": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": "int",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": ""
+            },
+            {
+              "name": "sn",
+              "type": "varchar(255)",
+              "nullable": "NO",
+              "key": "UNI",
+              "default": null,
+              "extra": "",
+              "comment": "设备编号"
+            },
+            {
+              "name": "type",
+              "type": "varchar(255)",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "weather(气象站),soil（土壤墒情）,environment（环境）"
+            },
+            {
+              "name": "name",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "设备名称"
+            },
+            {
+              "name": "lng",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "经度"
+            },
+            {
+              "name": "lat",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "纬度"
+            },
+            {
+              "name": "config",
+              "type": "varchar(1000)",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "设备配置"
+            },
+            {
+              "name": "farm",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "农场"
+            },
+            {
+              "name": "region",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "安装位置"
+            },
+            {
+              "name": "collect_time",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "最新数据采集时间"
+            },
+            {
+              "name": "vendor",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "厂家"
+            },
+            {
+              "name": "status",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": "InUse",
+              "extra": "",
+              "comment": "状态: InUse 正常，Fault 异常"
+            },
+            {
+              "name": "online",
+              "type": "tinyint(1)",
+              "nullable": "YES",
+              "key": "",
+              "default": "1",
+              "extra": "",
+              "comment": "1: 在线， 0：离线"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "farm_index",
+              "NON_UNIQUE": 1,
+              "columns": "farm",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "unique_index",
+              "NON_UNIQUE": 0,
+              "columns": "sn",
+              "INDEX_TYPE": "BTREE"
+            }
+          ]
+        },
+        "device_data": {
+          "table": "device_data",
+          "role": "传感器时序原始数据",
+          "join": "device_id IN (喜越 sensor_device.id)",
+          "row_count": 95412,
+          "time_range": {
+            "min": "2026-07-02 17:50:09",
+            "max": "2026-10-22 23:15:41"
+          },
+          "has_data": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": "int",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": ""
+            },
+            {
+              "name": "device_id",
+              "type": "int",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "设备id"
+            },
+            {
+              "name": "collect_time",
+              "type": "timestamp",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "采集时间"
+            },
+            {
+              "name": "data",
+              "type": "varchar(2048)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "采集数据：{\"32\":23.32, \"35\":45.3}"
+            },
+            {
+              "name": "create_time",
+              "type": "timestamp",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建时间"
+            },
+            {
+              "name": "pushed",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": "0",
+              "extra": "",
+              "comment": "是否已推送"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "device_unique",
+              "NON_UNIQUE": 0,
+              "columns": "device_id,collect_time",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            }
+          ],
+          "notes": "data 字段为 JSON 字符串，形如 {\"32\":23.32,\"35\":45.3}"
+        },
+        "tail_water_irrigation_summary": {
+          "table": "tail_water_irrigation_summary",
+          "role": "尾水单次灌溉汇总",
+          "join": "device_id / device_sn 关联喜越尾水设备",
+          "row_count": 443,
+          "time_range": {
+            "irrigation_start_time": {
+              "min": "2026-09-27 21:00:00",
+              "max": "2026-10-22 19:56:00"
+            },
+            "report_date": {
+              "min": "2026-09-27",
+              "max": "2026-10-22"
+            }
+          },
+          "has_data": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": "bigint unsigned",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": "主键ID"
+            },
+            {
+              "name": "device_id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "设备ID，对应sensor_device.id"
+            },
+            {
+              "name": "device_sn",
+              "type": "varchar(64)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "设备SN"
+            },
+            {
+              "name": "report_date",
+              "type": "date",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "统计日期"
+            },
+            {
+              "name": "irrigation_count",
+              "type": "int",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "当天第几次灌溉"
+            },
+            {
+              "name": "irrigation_start_time",
+              "type": "datetime",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "该次灌溉开始时间（首包时间）"
+            },
+            {
+              "name": "tail_water_source_time",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "尾水数据采用的采集时间"
+            },
+            {
+              "name": "packet_count",
+              "type": "int",
+              "nullable": "NO",
+              "key": "",
+              "default": "0",
+              "extra": "",
+              "comment": "该次灌溉包含的数据包数量"
+            },
+            {
+              "name": "water_in_ml",
+              "type": "decimal(10,2)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "灌溉量(mL)"
+            },
+            {
+              "name": "water_drain_ml",
+              "type": "decimal(10,2)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "尾水量(mL)"
+            },
+            {
+              "name": "tail_water_ratio",
+              "type": "decimal(10,4)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "尾水率"
+            },
+            {
+              "name": "inlet_ec",
+              "type": "decimal(10,3)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "灌溉液EC"
+            },
+            {
+              "name": "inlet_ph",
+              "type": "decimal(10,3)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "灌溉液PH"
+            },
+            {
+              "name": "drain_ec",
+              "type": "decimal(10,3)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "尾水EC"
+            },
+            {
+              "name": "drain_ph",
+              "type": "decimal(10,3)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "尾水PH"
+            },
+            {
+              "name": "source_record_json",
+              "type": "json",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "用于生成统计结果的原始摘要JSON"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "nullable": "NO",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED",
+              "comment": "创建时间"
+            },
+            {
+              "name": "updated_at",
+              "type": "datetime",
+              "nullable": "NO",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+              "comment": "更新时间"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "idx_tail_water_summary_device_id",
+              "NON_UNIQUE": 1,
+              "columns": "device_id",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "idx_tail_water_summary_report_date",
+              "NON_UNIQUE": 1,
+              "columns": "report_date",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "idx_tail_water_summary_start_time",
+              "NON_UNIQUE": 1,
+              "columns": "irrigation_start_time",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "uk_tail_water_summary_device_date_count",
+              "NON_UNIQUE": 0,
+              "columns": "device_id,report_date,irrigation_count",
+              "INDEX_TYPE": "BTREE"
+            }
+          ]
+        }
+      },
+      "devices": [
+        {
+          "id": 32,
+          "sn": "40419014",
+          "type": "weather",
+          "name": "室外气象站",
+          "farm": "太仓总部，喜越农业",
+          "region": "室外",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:13:42",
+          "device_data_rows": 32294,
+          "device_data_time_range": {
+            "min": "2026-07-02 17:50:09",
+            "max": "2026-10-22 23:13:42"
+          }
+        },
+        {
+          "id": 39,
+          "sn": "24314963",
+          "type": "environment",
+          "name": "A1",
+          "farm": "喜越农业",
+          "region": "A1",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:08:44",
+          "device_data_rows": 6660,
+          "device_data_time_range": {
+            "min": "2026-09-07 10:38:54",
+            "max": "2026-10-22 23:08:44"
+          }
+        },
+        {
+          "id": 40,
+          "sn": "24315009",
+          "type": "environment",
+          "name": "A2",
+          "farm": "喜越农业",
+          "region": "A2",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:13:58",
+          "device_data_rows": 3147,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:05:48",
+            "max": "2026-10-22 23:13:58"
+          }
+        },
+        {
+          "id": 41,
+          "sn": "24315004",
+          "type": "environment",
+          "name": "B1",
+          "farm": "喜越农业",
+          "region": "B1",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:08:45",
+          "device_data_rows": 5550,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:27:19",
+            "max": "2026-10-22 23:08:45"
+          }
+        },
+        {
+          "id": 42,
+          "sn": "24314968",
+          "type": "environment",
+          "name": "B2",
+          "farm": "喜越农业",
+          "region": "B2",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-19 18:04:32",
+          "device_data_rows": 4919,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:24:51",
+            "max": "2026-10-19 18:04:32"
+          }
+        },
+        {
+          "id": 43,
+          "sn": "24315001",
+          "type": "environment",
+          "name": "B4",
+          "farm": "喜越农业",
+          "region": "B4",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:10:41",
+          "device_data_rows": 5529,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:26:30",
+            "max": "2026-10-22 23:10:41"
+          }
+        },
+        {
+          "id": 44,
+          "sn": "24315002",
+          "type": "environment",
+          "name": "B5",
+          "farm": "喜越农业",
+          "region": "B5",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:07:38",
+          "device_data_rows": 5410,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:25:33",
+            "max": "2026-10-22 23:07:38"
+          }
+        },
+        {
+          "id": 45,
+          "sn": "24314986",
+          "type": "environment",
+          "name": "B6",
+          "farm": "喜越农业",
+          "region": "B6",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:06:04",
+          "device_data_rows": 3809,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:00:45",
+            "max": "2026-10-22 23:06:04"
+          }
+        },
+        {
+          "id": 46,
+          "sn": "24314965",
+          "type": "environment",
+          "name": "B7",
+          "farm": "喜越农业",
+          "region": "B7",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:15:41",
+          "device_data_rows": 3799,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:08:37",
+            "max": "2026-10-22 23:15:41"
+          }
+        },
+        {
+          "id": 47,
+          "sn": "24314980",
+          "type": "environment",
+          "name": "B8",
+          "farm": "喜越农业",
+          "region": "B8",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:11:49",
+          "device_data_rows": 3569,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:11:42",
+            "max": "2026-10-22 23:11:49"
+          }
+        },
+        {
+          "id": 48,
+          "sn": "24314982",
+          "type": "environment",
+          "name": "B9",
+          "farm": "喜越农业",
+          "region": "B9",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:09:31",
+          "device_data_rows": 3698,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:15:36",
+            "max": "2026-10-22 23:09:31"
+          }
+        },
+        {
+          "id": 49,
+          "sn": "24314978",
+          "type": "environment",
+          "name": "C1",
+          "farm": "喜越农业",
+          "region": "C1",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-12 11:42:52",
+          "device_data_rows": 2,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:17:17",
+            "max": "2026-10-12 11:42:52"
+          }
+        },
+        {
+          "id": 50,
+          "sn": "24314975",
+          "type": "environment",
+          "name": "C2",
+          "farm": "喜越农业",
+          "region": "C2",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-09-13 16:18:54",
+          "device_data_rows": 1,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:18:54",
+            "max": "2026-09-13 16:18:54"
+          }
+        },
+        {
+          "id": 51,
+          "sn": "24314997",
+          "type": "environment",
+          "name": "C3",
+          "farm": "喜越农业",
+          "region": "C3",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-09-13 16:13:35",
+          "device_data_rows": 1,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:13:35",
+            "max": "2026-09-13 16:13:35"
+          }
+        },
+        {
+          "id": 52,
+          "sn": "24315006",
+          "type": "environment",
+          "name": "C4",
+          "farm": "喜越农业",
+          "region": "C4",
+          "vendor": "rkck",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:14:08",
+          "device_data_rows": 6265,
+          "device_data_time_range": {
+            "min": "2026-09-13 16:27:58",
+            "max": "2026-10-22 23:14:08"
+          }
+        },
+        {
+          "id": 53,
+          "sn": "2637050603",
+          "type": "environment",
+          "name": "A3室内气象站",
+          "farm": "喜越农业",
+          "region": "A3",
+          "vendor": "Bombus",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:10:00",
+          "device_data_rows": 3043,
+          "device_data_time_range": {
+            "min": "2026-09-18 09:00:00",
+            "max": "2026-10-22 23:10:00"
+          }
+        },
+        {
+          "id": 54,
+          "sn": "2637050602",
+          "type": "environment",
+          "name": "B3室内气象站",
+          "farm": "喜越农业",
+          "region": "B3",
+          "vendor": "Bombus",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:10:00",
+          "device_data_rows": 3046,
+          "device_data_time_range": {
+            "min": "2026-09-18 11:00:00",
+            "max": "2026-10-22 23:10:00"
+          }
+        },
+        {
+          "id": 55,
+          "sn": "2637050601",
+          "type": "environment",
+          "name": "B7室内气象站",
+          "farm": "喜越农业",
+          "region": "B7",
+          "vendor": "Bombus",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 23:10:00",
+          "device_data_rows": 3047,
+          "device_data_time_range": {
+            "min": "2026-09-18 10:00:00",
+            "max": "2026-10-22 23:10:00"
+          }
+        },
+        {
+          "id": 56,
+          "sn": "2636040101",
+          "type": "tail_water",
+          "name": "A3尾水设备",
+          "farm": "喜越农业",
+          "region": "A3",
+          "vendor": "Bombus",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 22:00:00",
+          "device_data_rows": 449,
+          "device_data_time_range": {
+            "min": "2026-09-27 21:00:00",
+            "max": "2026-10-22 22:00:00"
+          }
+        },
+        {
+          "id": 57,
+          "sn": "2636040102",
+          "type": "tail_water",
+          "name": "B3尾水设备",
+          "farm": "喜越农业",
+          "region": "B3",
+          "vendor": "Bombus",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 22:00:00",
+          "device_data_rows": 475,
+          "device_data_time_range": {
+            "min": "2026-09-29 09:00:00",
+            "max": "2026-10-22 22:00:00"
+          }
+        },
+        {
+          "id": 58,
+          "sn": "2636040105",
+          "type": "tail_water",
+          "name": "A3尾水设备2",
+          "farm": "喜越农业",
+          "region": "A3",
+          "vendor": "Bombus",
+          "status": "InUse",
+          "online": 1,
+          "collect_time_latest": "2026-10-22 22:00:00",
+          "device_data_rows": 699,
+          "device_data_time_range": {
+            "min": "2026-09-29 09:00:00",
+            "max": "2026-10-22 22:00:00"
+          }
+        }
+      ],
+      "no_data_tables_checked": [
+        {
+          "table": "assistant_report",
+          "match": "farm LIKE '%喜越%'",
+          "row_count": 0,
+          "has_data": false
+        },
+        {
+          "table": "crop_phenotype_records",
+          "match": "farm LIKE '%喜越%'",
+          "row_count": 0,
+          "has_data": false
+        },
+        {
+          "table": "farm_work_records",
+          "match": "farm LIKE '%喜越%'",
+          "row_count": 0,
+          "has_data": false
+        },
+        {
+          "table": "farming_record",
+          "match": "farm LIKE '%喜越%'",
+          "row_count": 0,
+          "has_data": false
+        },
+        {
+          "table": "irrigation_data",
+          "match": "farm LIKE '%喜越%'",
+          "row_count": 0,
+          "has_data": false
+        },
+        {
+          "table": "phenotyping_data",
+          "match": "farm LIKE '%喜越%'",
+          "row_count": 0,
+          "has_data": false
+        },
+        {
+          "table": "plant_protection_data",
+          "match": "farm LIKE '%喜越%'",
+          "row_count": 0,
+          "has_data": false
+        },
+        {
+          "table": "plant_protection_records",
+          "match": "farm LIKE '%喜越%'",
+          "row_count": 0,
+          "has_data": false
+        },
+        {
+          "table": "substrate_humidity_records",
+          "match": "farm LIKE '%喜越%'",
+          "row_count": 0,
+          "has_data": false
+        },
+        {
+          "table": "tailing_data",
+          "match": "farm LIKE '%喜越%'",
+          "row_count": 0,
+          "has_data": false
+        }
+      ],
+      "summary": {
+        "device_count": 21,
+        "device_by_type": {
+          "weather": 1,
+          "environment": 17,
+          "tail_water": 3
+        },
+        "tables_with_data": [
+          "sensor_device",
+          "device_data",
+          "tail_water_irrigation_summary"
+        ]
+      }
+    },
+    "rockai": {
+      "source": "db2",
+      "database": "rockai",
+      "identity": {
+        "farm_id": 8,
+        "farm_short_name": "XYNY",
+        "farm_name": "喜越农业",
+        "area_ids": [
+          114,
+          115,
+          116
+        ]
+      },
+      "tables": {},
+      "farm": {
+        "id": 8,
+        "farm_short_name": "XYNY",
+        "farm_name": "喜越农业",
+        "location": "{\"type\": \"Polygon\", \"coordinates\": [[]]}",
+        "district": "太仓市城厢镇新农村村民委员会",
+        "farm_area": 113.37,
+        "is_open": 1,
+        "is_delete": 0,
+        "area_cnt": 3,
+        "created_user": "ganmin",
+        "updated_user": "ganmin",
+        "created_at": "2026-09-14 15:09:25",
+        "updated_at": "2026-09-14 15:09:25",
+        "lng": null,
+        "lat": null
+      },
+      "areas": [
+        {
+          "id": 114,
+          "farm_id": 8,
+          "area_name": "C区",
+          "is_delete": 0,
+          "location": null,
+          "created_user": "ganmin",
+          "updated_user": "ganmin",
+          "created_at": "2026-09-14 15:09:25",
+          "updated_at": "2026-09-14 15:10:11",
+          "grow_crops": "草莓",
+          "area": 32.68,
+          "flow_rate": null
+        },
+        {
+          "id": 115,
+          "farm_id": 8,
+          "area_name": "B区",
+          "is_delete": 0,
+          "location": null,
+          "created_user": "ganmin",
+          "updated_user": "ganmin",
+          "created_at": "2026-09-14 15:09:25",
+          "updated_at": "2026-09-14 15:10:11",
+          "grow_crops": "草莓",
+          "area": 60.82,
+          "flow_rate": null
+        },
+        {
+          "id": 116,
+          "farm_id": 8,
+          "area_name": "A区",
+          "is_delete": 0,
+          "location": null,
+          "created_user": "ganmin",
+          "updated_user": "ganmin",
+          "created_at": "2026-09-14 15:09:25",
+          "updated_at": "2026-09-14 15:10:11",
+          "grow_crops": "草莓",
+          "area": 19.87,
+          "flow_rate": null
+        }
+      ],
+      "users": [
+        {
+          "id": 40,
+          "username": "XYNYguangai",
+          "farm_id": 8,
+          "phone": "18908606979",
+          "email": null,
+          "username_chn": "灌溉主管",
+          "created_user": "ganmin",
+          "updated_user": "system",
+          "created_at": "2026-09-14 15:12:28",
+          "updated_at": "2026-09-29 16:58:56",
+          "role_code": "GGZG",
+          "is_admin": 0,
+          "is_use": 1,
+          "is_delete": 0,
+          "login_error_cnt": 0,
+          "auto_disable": ""
+        },
+        {
+          "id": 41,
+          "username": "XYNYzhibao",
+          "farm_id": 8,
+          "phone": "18908606979",
+          "email": null,
+          "username_chn": "植保主管",
+          "created_user": "ganmin",
+          "updated_user": "ganmin",
+          "created_at": "2026-09-14 15:14:32",
+          "updated_at": "2026-09-14 15:14:51",
+          "role_code": "ZBZG",
+          "is_admin": 0,
+          "is_use": 1,
+          "is_delete": 0,
+          "login_error_cnt": 0,
+          "auto_disable": ""
+        },
+        {
+          "id": 42,
+          "username": "XYNYnongshi",
+          "farm_id": 8,
+          "phone": "18908606979",
+          "email": null,
+          "username_chn": "农事主管",
+          "created_user": "ganmin",
+          "updated_user": "ganmin",
+          "created_at": "2026-09-14 15:15:14",
+          "updated_at": "2026-09-14 15:15:14",
+          "role_code": "NSSC",
+          "is_admin": 0,
+          "is_use": 1,
+          "is_delete": 0,
+          "login_error_cnt": 0,
+          "auto_disable": ""
+        }
+      ],
+      "program_areas": [
+        {
+          "id": 65,
+          "farm_id": 8,
+          "plan_name": "种植区",
+          "program_no": "1",
+          "area_id": "114,115,116",
+          "area_name": "C区,B区,A区",
+          "is_use": 1,
+          "is_delete": 0,
+          "created_user": "ganmin",
+          "updated_user": "ganmin",
+          "created_at": "2026-09-14 15:09:25",
+          "updated_at": "2026-09-14 15:10:11",
+          "irrigation_sn": null
+        }
+      ],
+      "task_rule_configs": [
+        {
+          "id": 265,
+          "farm_id": 8,
+          "rule_name": "灌溉操作",
+          "task_name": null,
+          "executor_codes": "XYNYguangai",
+          "executor_ch_names": "灌溉主管",
+          "area_ids": "114,115,116",
+          "area_names": "C区,B区,A区",
+          "start_date": "2026-09-14",
+          "end_date": "2029-10-19",
+          "frequency_type": 0,
+          "frequency_value": null,
+          "suggested_start_time": "07:00",
+          "suggested_end_time": "16:50",
+          "description": "需包含 灌溉开始时间、使用的阀门编号、每次灌溉的持续时间；\n例如：上午8点开启 5 、 8 号阀门，持续灌溉 3分钟，间隔50分钟，17点结束。",
+          "status": 2,
+          "created_user": "ganmin",
+          "updated_user": "system",
+          "created_at": "2026-09-14 15:22:11",
+          "updated_at": "2026-10-22 23:01:01",
+          "source": 1,
+          "rule_type": 1,
+          "is_delete": 0,
+          "rule_task_type": "ggcz",
+          "task_id": null,
+          "created_user_name": "超管",
+          "template_content": null,
+          "transcript": null,
+          "audio": null,
+          "summary_origin": null,
+          "summary": null
+        }
+      ],
+      "tables_with_data": {
+        "zhny_ai_history": {
+          "table": "zhny_ai_history",
+          "join": "farm_id=8",
+          "row_count": 7,
+          "has_data": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": "自增id"
+            },
+            {
+              "name": "username",
+              "type": "varchar(50)",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "用户账号"
+            },
+            {
+              "name": "date",
+              "type": "varchar(10)",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "日期"
+            },
+            {
+              "name": "farm_id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "农场ID"
+            },
+            {
+              "name": "source",
+              "type": "int",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "来源 1:ai灌溉实施调整 2:用户发送, 3:人工实施调整，4：农场消息 5：农场日报 6：Ai返回"
+            },
+            {
+              "name": "plan_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "调整程序ID"
+            },
+            {
+              "name": "stage",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "调整阶段序号"
+            },
+            {
+              "name": "title",
+              "type": "varchar(100)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "标题内容"
+            },
+            {
+              "name": "contents",
+              "type": "varchar(500)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "修改原因内容"
+            },
+            {
+              "name": "suggest",
+              "type": "varchar(500)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "AI建议内容"
+            },
+            {
+              "name": "start_time_org",
+              "type": "varchar(5)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "开始时间调整前"
+            },
+            {
+              "name": "end_time_org",
+              "type": "varchar(5)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "结束时间调整前"
+            },
+            {
+              "name": "irrigate_duration_org",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "灌溉时长（秒）调整前"
+            },
+            {
+              "name": "interval_time_org",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "间隔时长（分钟）调整前"
+            },
+            {
+              "name": "start_time",
+              "type": "varchar(5)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "开始时间调整后"
+            },
+            {
+              "name": "end_time",
+              "type": "varchar(5)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "结束时间调整后"
+            },
+            {
+              "name": "irrigate_duration",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "灌溉时长（秒）调整后"
+            },
+            {
+              "name": "interval_time",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "间隔时长（分钟）调整后"
+            },
+            {
+              "name": "modify_result",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "调整结果 1：成功 2：失败"
+            },
+            {
+              "name": "message",
+              "type": "text",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "消息内容"
+            },
+            {
+              "name": "created_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建人"
+            },
+            {
+              "name": "updated_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "更新人"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED",
+              "comment": "创建时间"
+            },
+            {
+              "name": "updated_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+              "comment": "更新时间"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "idx_ai_history_key",
+              "NON_UNIQUE": 1,
+              "columns": "username,date,farm_id",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            }
+          ],
+          "role": "AI 对话/历史"
+        },
+        "zhny_app_login_info": {
+          "table": "zhny_app_login_info",
+          "join": "farm_id=8",
+          "row_count": 8,
+          "has_data": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": "主键"
+            },
+            {
+              "name": "username",
+              "type": "varchar(50)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "用户账号"
+            },
+            {
+              "name": "farm_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "农场ID"
+            },
+            {
+              "name": "device_no",
+              "type": "varchar(50)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "设备号"
+            },
+            {
+              "name": "farm_name",
+              "type": "varchar(50)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "农场唯一ID"
+            },
+            {
+              "name": "app_version",
+              "type": "varchar(20)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "应用版本"
+            },
+            {
+              "name": "bombus_version",
+              "type": "varchar(20)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "模型版本"
+            },
+            {
+              "name": "username_chn",
+              "type": "varchar(100)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "用户名称"
+            },
+            {
+              "name": "created_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建人"
+            },
+            {
+              "name": "updated_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "更新人"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建时间"
+            },
+            {
+              "name": "updated_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "更新时间"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            }
+          ],
+          "role": "App 登录记录"
+        },
+        "zhny_area": {
+          "table": "zhny_area",
+          "join": "farm_id=8",
+          "row_count": 3,
+          "has_data": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": "自增id"
+            },
+            {
+              "name": "farm_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "所属农场"
+            },
+            {
+              "name": "area_name",
+              "type": "varchar(100)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "区域名称"
+            },
+            {
+              "name": "is_delete",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": "0",
+              "extra": "",
+              "comment": ""
+            },
+            {
+              "name": "location",
+              "type": "json",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": ""
+            },
+            {
+              "name": "created_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建人"
+            },
+            {
+              "name": "updated_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "更新人"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED",
+              "comment": "创建时间"
+            },
+            {
+              "name": "updated_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+              "comment": "更新时间"
+            },
+            {
+              "name": "grow_crops",
+              "type": "varchar(100)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "种植作物"
+            },
+            {
+              "name": "area",
+              "type": "decimal(12,2)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "种植面积"
+            },
+            {
+              "name": "flow_rate",
+              "type": "decimal(10,2)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "灌溉流速（ml/min）"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "idx_farm_id",
+              "NON_UNIQUE": 1,
+              "columns": "farm_id",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            }
+          ],
+          "role": "种植分区"
+        },
+        "zhny_program_area": {
+          "table": "zhny_program_area",
+          "join": "farm_id=8",
+          "row_count": 1,
+          "has_data": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": "自增id"
+            },
+            {
+              "name": "farm_id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "农场ID"
+            },
+            {
+              "name": "plan_name",
+              "type": "varchar(100)",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "程序名称"
+            },
+            {
+              "name": "program_no",
+              "type": "varchar(50)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "编号"
+            },
+            {
+              "name": "area_id",
+              "type": "varchar(500)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "关联区域ID列表(逗号分隔)"
+            },
+            {
+              "name": "area_name",
+              "type": "varchar(1000)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "关联区域名称列表(逗号分隔)"
+            },
+            {
+              "name": "is_use",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": "1",
+              "extra": "",
+              "comment": "是否启用 0:禁用/1:启用"
+            },
+            {
+              "name": "is_delete",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": "0",
+              "extra": "",
+              "comment": "是否删除 0:未删除/1:删除"
+            },
+            {
+              "name": "created_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建人"
+            },
+            {
+              "name": "updated_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "更新人"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED",
+              "comment": "创建时间"
+            },
+            {
+              "name": "updated_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+              "comment": "更新时间"
+            },
+            {
+              "name": "irrigation_sn",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "灌溉设备sn"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "idx_farm_id",
+              "NON_UNIQUE": 1,
+              "columns": "farm_id",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            }
+          ],
+          "role": "灌溉/种植程序区"
+        },
+        "zhny_task": {
+          "table": "zhny_task",
+          "join": "farm_id=8",
+          "row_count": 123,
+          "has_data": true,
+          "columns": [
+            {
+              "name": "date",
+              "type": "varchar(10)",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "任务日期"
+            },
+            {
+              "name": "id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": "自增id"
+            },
+            {
+              "name": "farm_id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "农场ID"
+            },
+            {
+              "name": "area_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "区域ID"
+            },
+            {
+              "name": "plan_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "区域ID"
+            },
+            {
+              "name": "stage",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "阶段编号"
+            },
+            {
+              "name": "area_name",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "所属区域"
+            },
+            {
+              "name": "task_name",
+              "type": "varchar(100)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务名称"
+            },
+            {
+              "name": "role_code",
+              "type": "varchar(20)",
+              "nullable": "YES",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "所属角色"
+            },
+            {
+              "name": "task_type_main",
+              "type": "varchar(20)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务大类"
+            },
+            {
+              "name": "task_type_sub",
+              "type": "varchar(20)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务子类"
+            },
+            {
+              "name": "start_time",
+              "type": "varchar(10)",
+              "nullable": "YES",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "建议开始时间"
+            },
+            {
+              "name": "end_time",
+              "type": "varchar(10)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "建议结束时间"
+            },
+            {
+              "name": "completed_time",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "完成时间"
+            },
+            {
+              "name": "task_status",
+              "type": "tinyint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务状态（待推送0/待处理1/实施中2/已完成3）"
+            },
+            {
+              "name": "exterior_task_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "外部任务id"
+            },
+            {
+              "name": "description",
+              "type": "text",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务描述"
+            },
+            {
+              "name": "task_code",
+              "type": "varchar(30)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": ""
+            },
+            {
+              "name": "completed_user",
+              "type": "varchar(100)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": ""
+            },
+            {
+              "name": "executor_code",
+              "type": "varchar(50)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "执行对象"
+            },
+            {
+              "name": "rule_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务规则id"
+            },
+            {
+              "name": "template_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "模板id"
+            },
+            {
+              "name": "created_user_name",
+              "type": "varchar(50)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建人名"
+            },
+            {
+              "name": "created_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建人"
+            },
+            {
+              "name": "updated_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "更新人"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED",
+              "comment": "创建时间"
+            },
+            {
+              "name": "updated_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+              "comment": "更新时间"
+            },
+            {
+              "name": "start_time_org",
+              "type": "varchar(5)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "开始时间调整前"
+            },
+            {
+              "name": "end_time_org",
+              "type": "varchar(5)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "结束时间调整前"
+            },
+            {
+              "name": "modify_flg",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "调整标识 1-已AI调整  2-以人工调整"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "idx_date",
+              "NON_UNIQUE": 1,
+              "columns": "date",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "idx_farm_id",
+              "NON_UNIQUE": 1,
+              "columns": "farm_id",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "idx_role_code",
+              "NON_UNIQUE": 1,
+              "columns": "role_code",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "idx_start_time",
+              "NON_UNIQUE": 1,
+              "columns": "start_time",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            }
+          ],
+          "role": "任务"
+        },
+        "zhny_task_push": {
+          "table": "zhny_task_push",
+          "join": "farm_id=8",
+          "row_count": 30,
+          "has_data": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": "自增id"
+            },
+            {
+              "name": "farm_id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "农场ID"
+            },
+            {
+              "name": "minute",
+              "type": "int",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "发生时间点"
+            },
+            {
+              "name": "task_id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "任务ID"
+            },
+            {
+              "name": "plan_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "程序ID"
+            },
+            {
+              "name": "task_type_sub",
+              "type": "varchar(20)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务子类"
+            },
+            {
+              "name": "task_name",
+              "type": "varchar(100)",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务名称"
+            },
+            {
+              "name": "role_code",
+              "type": "varchar(36)",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "所属角色"
+            },
+            {
+              "name": "push_type",
+              "type": "int",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "推送类型0:创建；1:将要超时；2:已超时"
+            },
+            {
+              "name": "time_value",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "时间值"
+            },
+            {
+              "name": "created_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建人"
+            },
+            {
+              "name": "updated_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "更新人"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED",
+              "comment": "创建时间"
+            },
+            {
+              "name": "updated_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+              "comment": "更新时间"
+            },
+            {
+              "name": "executor_code",
+              "type": "varchar(50)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": ""
+            },
+            {
+              "name": "rule_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务规则id"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "idx_farm_id_minute",
+              "NON_UNIQUE": 1,
+              "columns": "farm_id,minute",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "idx_task_id",
+              "NON_UNIQUE": 1,
+              "columns": "task_id",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            }
+          ],
+          "role": "任务推送"
+        },
+        "zhny_task_rule_config": {
+          "table": "zhny_task_rule_config",
+          "join": "farm_id=8",
+          "row_count": 1,
+          "has_data": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": "主键，自增ID"
+            },
+            {
+              "name": "farm_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "农场ID"
+            },
+            {
+              "name": "rule_name",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "规则的自定义名称"
+            },
+            {
+              "name": "task_name",
+              "type": "varchar(50)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务名称"
+            },
+            {
+              "name": "executor_codes",
+              "type": "varchar(200)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "执行对象ID (例如用户ID、设备ID或角色ID)"
+            },
+            {
+              "name": "executor_ch_names",
+              "type": "varchar(200)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "执行对象ID (例如用户ID、设备ID或角色ID)"
+            },
+            {
+              "name": "area_ids",
+              "type": "varchar(200)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务相关的地理区域或逻辑区域ID"
+            },
+            {
+              "name": "area_names",
+              "type": "varchar(500)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务相关的地理区域或逻辑区域ID"
+            },
+            {
+              "name": "start_date",
+              "type": "varchar(10)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务有效期的开始日期"
+            },
+            {
+              "name": "end_date",
+              "type": "varchar(10)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务有效期的结束日期，如果为NULL则表示长期有效"
+            },
+            {
+              "name": "frequency_type",
+              "type": "tinyint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "推送频率类型 (例如:  (weekly 1, monthly 2, once 0))"
+            },
+            {
+              "name": "frequency_value",
+              "type": "varchar(100)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "推送频率的具体值。例如: weekly类型下\"1,3\"表示周一和周三; monthly类型下\"15\"表示每月15。"
+            },
+            {
+              "name": "suggested_start_time",
+              "type": "varchar(19)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "建议任务开始执行的时间点"
+            },
+            {
+              "name": "suggested_end_time",
+              "type": "varchar(19)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "建议任务在该时间点前完成"
+            },
+            {
+              "name": "description",
+              "type": "varchar(1000)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "对规则的详细描述或备注信息"
+            },
+            {
+              "name": "status",
+              "type": "tinyint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "规则状态 (已失效:0 待下发:1 进行中:2 已结束:3)"
+            },
+            {
+              "name": "created_user",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建人"
+            },
+            {
+              "name": "updated_user",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "更新人"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "now()",
+              "extra": "DEFAULT_GENERATED",
+              "comment": "创建时间"
+            },
+            {
+              "name": "updated_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "now()",
+              "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+              "comment": "更新时间"
+            },
+            {
+              "name": "source",
+              "type": "tinyint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "来源（0：异常推送 1：人工创建 2：AI生成）"
+            },
+            {
+              "name": "rule_type",
+              "type": "tinyint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "规则的类型 0单次，1周期"
+            },
+            {
+              "name": "is_delete",
+              "type": "tinyint unsigned",
+              "nullable": "YES",
+              "key": "",
+              "default": "0",
+              "extra": "",
+              "comment": "规则状态 (0:未删除，1:已删除)"
+            },
+            {
+              "name": "rule_task_type",
+              "type": "varchar(50)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "任务子类"
+            },
+            {
+              "name": "task_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "绑定的计划任务id"
+            },
+            {
+              "name": "created_user_name",
+              "type": "varchar(50)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建人名"
+            },
+            {
+              "name": "template_content",
+              "type": "text",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "模板内容"
+            },
+            {
+              "name": "transcript",
+              "type": "text",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "录音文本"
+            },
+            {
+              "name": "audio",
+              "type": "varchar(255)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "录音文件OSS路径"
+            },
+            {
+              "name": "summary_origin",
+              "type": "text",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "AI返回原始文案"
+            },
+            {
+              "name": "summary",
+              "type": "text",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "修改后文案"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            }
+          ],
+          "role": "任务规则配置"
+        },
+        "zhny_user": {
+          "table": "zhny_user",
+          "join": "farm_id=8",
+          "row_count": 3,
+          "has_data": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": "bigint",
+              "nullable": "NO",
+              "key": "PRI",
+              "default": null,
+              "extra": "auto_increment",
+              "comment": "主键"
+            },
+            {
+              "name": "username",
+              "type": "varchar(50)",
+              "nullable": "NO",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "用户名"
+            },
+            {
+              "name": "password",
+              "type": "varchar(255)",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "密码"
+            },
+            {
+              "name": "farm_id",
+              "type": "bigint",
+              "nullable": "YES",
+              "key": "MUL",
+              "default": null,
+              "extra": "",
+              "comment": "农场唯一ID"
+            },
+            {
+              "name": "phone",
+              "type": "varchar(20)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "手机号"
+            },
+            {
+              "name": "email",
+              "type": "varchar(100)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "邮箱地址"
+            },
+            {
+              "name": "username_chn",
+              "type": "varchar(100)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": ""
+            },
+            {
+              "name": "created_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "创建人"
+            },
+            {
+              "name": "updated_user",
+              "type": "varchar(36)",
+              "nullable": "YES",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "更新人"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED",
+              "comment": "创建时间"
+            },
+            {
+              "name": "updated_at",
+              "type": "datetime",
+              "nullable": "YES",
+              "key": "",
+              "default": "CURRENT_TIMESTAMP",
+              "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+              "comment": "更新时间"
+            },
+            {
+              "name": "role_code",
+              "type": "varchar(50)",
+              "nullable": "NO",
+              "key": "",
+              "default": null,
+              "extra": "",
+              "comment": "角色ID"
+            },
+            {
+              "name": "is_admin",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": "0",
+              "extra": "",
+              "comment": "是否超级管理员 0:否,1:是"
+            },
+            {
+              "name": "is_use",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": "1",
+              "extra": "",
+              "comment": "是否启用 0:禁用/1:启用"
+            },
+            {
+              "name": "is_delete",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": "0",
+              "extra": "",
+              "comment": "是否删除 0:未删除/1:删除"
+            },
+            {
+              "name": "login_error_cnt",
+              "type": "int",
+              "nullable": "YES",
+              "key": "",
+              "default": "0",
+              "extra": "",
+              "comment": "连续登录失败次数"
+            },
+            {
+              "name": "auto_disable",
+              "type": "varchar(2)",
+              "nullable": "YES",
+              "key": "",
+              "default": "",
+              "extra": "",
+              "comment": "是否自动禁用"
+            }
+          ],
+          "indexes": [
+            {
+              "INDEX_NAME": "idx_farm_id",
+              "NON_UNIQUE": 1,
+              "columns": "farm_id",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "idx_username",
+              "NON_UNIQUE": 1,
+              "columns": "username",
+              "INDEX_TYPE": "BTREE"
+            },
+            {
+              "INDEX_NAME": "PRIMARY",
+              "NON_UNIQUE": 0,
+              "columns": "id",
+              "INDEX_TYPE": "BTREE"
+            }
+          ],
+          "role": "农场用户账号"
+        }
+      },
+      "tables_without_data": [
+        {
+          "table": "cloud_daily_reports",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "cloud_exception_tasks",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "cloud_farm_records",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": "云端农事记录（喜越当前为空）"
+        },
+        {
+          "table": "cloud_farm_schema",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "cloud_irrigation_executions",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "cloud_irrigation_plan",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "cloud_sensor_data",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "cloud_sensors",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "cloud_system_messages",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "cloud_weather_alerts",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "cloud_weather_data",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "cloud_weekly_reports",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_device_config",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": "设备配置（喜越当前为空）"
+        },
+        {
+          "table": "zhny_env_sensor_data",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": "环境传感器时序（喜越当前为空）"
+        },
+        {
+          "table": "zhny_et_daily_data",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_farm_config_backup",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_farm_record",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": "农事记录（喜越当前为空）"
+        },
+        {
+          "table": "zhny_fertigation_sensor_data",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_irrigation_plan",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": "灌溉计划（喜越当前为空）"
+        },
+        {
+          "table": "zhny_message",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_plan_task_rule_config",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_program_area_bk_202601",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_role",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_role_bk_202601",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_soil_moisture_sensor_data",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_task_rule",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_task_rule_config_copy1",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_task_rule_copy1",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_task_template",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_user_role",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_user_role_bk_202601",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_weather_sensor_daily_data",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": ""
+        },
+        {
+          "table": "zhny_weather_sensor_data",
+          "join": "farm_id=8",
+          "row_count": 0,
+          "has_data": false,
+          "role": "气象传感器时序（喜越当前为空）"
+        }
+      ],
+      "summary": {
+        "farm_id": 8,
+        "area_count": 3,
+        "user_count": 3,
+        "tables_with_data": [
+          "zhny_ai_history",
+          "zhny_app_login_info",
+          "zhny_area",
+          "zhny_program_area",
+          "zhny_task",
+          "zhny_task_push",
+          "zhny_task_rule_config",
+          "zhny_user"
+        ],
+        "notable_empty": [
+          "zhny_device_config",
+          "zhny_env_sensor_data",
+          "zhny_weather_sensor_data",
+          "zhny_farm_record",
+          "zhny_irrigation_plan",
+          "cloud_farm_records",
+          "cloud_daily_reports",
+          "cloud_weekly_reports"
+        ]
+      }
+    }
+  },
+  "cross_db": {
+    "name_alignment": {
+      "monitor.sensor_device.farm": [
+        "喜越农业",
+        "太仓总部，喜越农业"
+      ],
+      "rockai.zhny_farm": {
+        "id": 8,
+        "farm_name": "喜越农业",
+        "farm_short_name": "XYNY"
+      }
+    },
+    "gap": [
+      "喜越传感器时序在 monitor.device_data，rockai 无 farm_id=8 的环境/气象数据",
+      "rockai.zhny_device_config 无喜越设备，两端设备主数据未打通",
+      "monitor 农事/表型/灌溉日表无喜越；rockai 农事记录/灌溉计划亦为空，仅有任务体系"
+    ],
+    "suggested_joins_for_dev": [
+      {
+        "purpose": "monitor 设备列表",
+        "sql": "SELECT * FROM sensor_device WHERE farm LIKE '%喜越%'"
+      },
+      {
+        "purpose": "monitor 时序",
+        "sql": "SELECT d.* FROM device_data d JOIN sensor_device s ON s.id=d.device_id WHERE s.farm LIKE '%喜越%'"
+      },
+      {
+        "purpose": "monitor 尾水汇总",
+        "sql": "SELECT t.* FROM tail_water_irrigation_summary t JOIN sensor_device s ON s.id=t.device_id WHERE s.farm LIKE '%喜越%'"
+      },
+      {
+        "purpose": "rockai 农场与分区",
+        "sql": "SELECT f.*, a.* FROM zhny_farm f LEFT JOIN zhny_area a ON a.farm_id=f.id WHERE f.id=8"
+      },
+      {
+        "purpose": "rockai 任务",
+        "sql": "SELECT * FROM zhny_task WHERE farm_id=8"
+      }
+    ]
+  }
+}

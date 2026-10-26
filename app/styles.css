@@ -1,0 +1,435 @@
+/* 喜越尾水报表：现代专业风，红/黄点缀，浅底高密度 */
+
+:root {
+  --ink: #1a1f16;
+  --ink-muted: #4a5340;
+  --line: #e2e6dc;
+  --surface: #fbfcf8;
+  --paper: #ffffff;
+  --accent-red: #c62828;
+  --accent-amber: #e6a700;
+  --accent-leaf: #2e7d32;
+  --accent-soil: #6d4c41;
+  --radius: 10px;
+  --font: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", system-ui, sans-serif;
+}
+
+html, body, [data-testid="stAppViewContainer"] {
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--surface);
+}
+
+/* 顶部细装饰条：红+黄点缀，非大面积底色 */
+[data-testid="stHeader"] {
+  background: transparent;
+}
+
+.block-container {
+  padding-top: 1.1rem !important;
+  padding-bottom: 1.5rem !important;
+  max-width: 100% !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+}
+
+/* 主内容区尽量占满视口宽度 */
+section.main > div {
+  max-width: 100% !important;
+}
+
+/* 主标题区 */
+.xy-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0 0.75rem;
+  margin-bottom: 0.35rem;
+  border-bottom: 2px solid var(--line);
+  position: relative;
+}
+
+.xy-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 88px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-amber));
+}
+
+.xy-hero-title {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.xy-hero-title span.mark {
+  color: var(--accent-red);
+}
+
+.xy-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.xy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.xy-chip::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-amber);
+  box-shadow: 0 0 0 2px rgba(230, 167, 0, 0.25);
+}
+
+.xy-deco {
+  color: var(--accent-leaf);
+  opacity: 0.85;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  user-select: none;
+}
+
+/* 侧栏 */
+[data-testid="stSidebar"] {
+  background: var(--paper) !important;
+  border-right: 1px solid var(--line);
+}
+
+[data-testid="stSidebar"] .block-container {
+  padding-top: 1rem !important;
+}
+
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+  color: var(--ink) !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  margin-bottom: 0.4rem !important;
+}
+
+.xy-side-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  margin: 0.65rem 0 0.35rem;
+}
+
+/* 输入框 / 下拉 / 日期：深字浅底，保证易读 */
+[data-testid="stSidebar"] input,
+[data-testid="stSidebar"] textarea,
+[data-testid="stSidebar"] select,
+[data-testid="stDateInput"] input,
+div[data-baseweb="select"] > div,
+div[data-baseweb="input"] > div,
+div[data-baseweb="base-input"] {
+  background-color: #fff !important;
+  color: var(--ink) !important;
+  border-color: var(--line) !important;
+  font-size: 0.95rem !important;
+}
+
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span {
+  color: var(--ink) !important;
+}
+
+div[data-baseweb="select"] span,
+div[data-baseweb="select"] div,
+div[data-baseweb="tag"] span {
+  color: var(--ink) !important;
+}
+
+/* 侧栏设备多选：选项文字白色（深色标签底） */
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] div[data-baseweb="select"] > div,
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] div[data-baseweb="input"],
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] div[data-baseweb="base-input"] {
+  background-color: #2a3124 !important;
+  color: #ffffff !important;
+  border-color: #3d4636 !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] span,
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] p,
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] div,
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] input {
+  color: #ffffff !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] div[data-baseweb="tag"] {
+  background-color: #3d4636 !important;
+  border-color: #4a5340 !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] div[data-baseweb="tag"] span {
+  color: #ffffff !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] svg {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* 棚号：横向圆点单选，并列胶囊 */
+[data-testid="stSidebar"] div[role="radiogroup"] {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+[data-testid="stSidebar"] div[role="radiogroup"] > label {
+  margin: 0 !important;
+  padding: 0.5rem 1.05rem 0.5rem 0.65rem !important;
+  min-height: 2.6rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
+  border-color: var(--accent-amber);
+}
+
+[data-testid="stSidebar"] div[role="radiogroup"] > label[data-checked="true"],
+[data-testid="stSidebar"] div[role="radiogroup"] > label:has(input:checked) {
+  border-color: var(--accent-red);
+  box-shadow: inset 0 0 0 1px var(--accent-red);
+  background: #fff;
+}
+
+[data-testid="stSidebar"] div[role="radiogroup"] label p,
+[data-testid="stSidebar"] div[role="radiogroup"] label span {
+  font-size: 1.96rem !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+  line-height: 1.2 !important;
+}
+
+/* 指标卡：白底 + 左侧红/黄细条，无大色块 */
+div[data-testid="stMetric"] {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.55rem 0.75rem 0.65rem;
+  position: relative;
+  overflow: hidden;
+}
+
+div[data-testid="stMetric"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent-amber);
+}
+
+div[data-testid="stMetric"]:nth-of-type(2)::before,
+[data-testid="stHorizontalBlock"] > div:nth-child(2) div[data-testid="stMetric"]::before {
+  background: var(--accent-red);
+}
+
+div[data-testid="stMetric"] label {
+  color: var(--ink-muted) !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+}
+
+div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+  color: var(--ink) !important;
+  font-size: 1.45rem !important;
+  font-weight: 700 !important;
+}
+
+/* 区块标题 */
+.xy-section {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.85rem 0 0.45rem;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.xy-section .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-red);
+  box-shadow: 4px 0 0 var(--accent-amber);
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+/* 表格：默认固定高度可内滚；展开后占满内容高度 */
+.xy-table-wrap {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: auto;
+  background: var(--paper);
+  margin-bottom: 0.5rem;
+  max-height: 420px;
+  transition: max-height 0.2s ease;
+}
+
+.xy-table-wrap.is-expanded {
+  max-height: none;
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+.xy-table-empty {
+  margin: 0;
+  padding: 1rem;
+  color: var(--ink-muted);
+}
+
+.xy-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+  color: var(--ink);
+}
+
+.xy-data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f3f5ef;
+  border-bottom: 2px solid var(--line);
+  padding: 0.55rem 0.65rem;
+  text-align: left;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.xy-data-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.45rem 0.65rem;
+  vertical-align: middle;
+  color: var(--ink);
+}
+
+.xy-data-table tr.xy-row-alt td {
+  background: #fafbf7;
+}
+
+.xy-data-table td.xy-date-cell {
+  vertical-align: middle;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.05rem;
+  background: #fffdf5;
+  border-right: 2px solid var(--accent-amber);
+  color: var(--ink);
+  min-width: 7.5rem;
+  white-space: nowrap;
+}
+
+.xy-data-table tbody tr:hover td:not(.xy-date-cell) {
+  background: #f5f7f0;
+}
+
+/* 相对前一天同阀：变化幅度（百分比）显示在数值右侧 */
+.xy-data-table .xy-metric {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.xy-data-table .xy-val {
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.xy-data-table .xy-delta {
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.xy-data-table .xy-delta.xy-up {
+  color: var(--accent-red);
+}
+
+.xy-data-table .xy-delta.xy-down {
+  color: var(--accent-leaf);
+}
+
+.xy-data-table .xy-delta.xy-flat {
+  color: var(--ink-muted);
+}
+
+/* Tabs */
+button[data-baseweb="tab"] {
+  color: var(--ink-muted) !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+}
+
+button[data-baseweb="tab"][aria-selected="true"] {
+  color: var(--accent-red) !important;
+}
+
+/* 按钮 */
+.stButton > button,
+.stDownloadButton > button {
+  border: 1px solid var(--line) !important;
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover {
+  border-color: var(--accent-red) !important;
+  color: var(--accent-red) !important;
+}
+
+/* 压缩多余说明间距 */
+[data-testid="stCaption"] {
+  display: none;
+}
+
+.xy-footer-hint {
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
