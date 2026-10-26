@@ -1,4 +1,4 @@
-"""数据库连接：读取 .env 的 db1/db2/db3。密码不做 URL 解码。"""
+"""数据库连接：读取 .env、环境变量或 Streamlit Secrets 的 db1/db2/db3。密码不做 URL 解码。"""
 from __future__ import annotations
 
 import os
@@ -10,6 +10,7 @@ import pymysql
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_ENV = ROOT / ".env"
+CONNECTION_KEYS = ("db1", "db2", "db3")
 
 DEFAULT_DATABASES = {
     "db1": "monitor",
@@ -18,8 +19,7 @@ DEFAULT_DATABASES = {
 }
 
 
-def load_env(path: Path | None = None) -> dict[str, str]:
-    env_path = path or Path(os.environ.get("REPORTS_ENV", DEFAULT_ENV))
+def _parse_env_file(env_path: Path) -> dict[str, str]:
     result: dict[str, str] = {}
     with open(env_path, encoding="utf-8") as f:
         for line in f:
@@ -28,6 +28,42 @@ def load_env(path: Path | None = None) -> dict[str, str]:
                 continue
             key, value = line.split("=", 1)
             result[key.strip()] = value.strip()
+    return result
+
+
+def _connection_urls_from_secrets() -> dict[str, str]:
+    """Streamlit Cloud 只注入 Secrets，不会带上被 gitignore 的 .env。"""
+    try:
+        import streamlit as st
+
+        secrets = st.secrets
+    except Exception:
+        return {}
+    found: dict[str, str] = {}
+    for key in CONNECTION_KEYS:
+        try:
+            value = secrets[key]
+        except Exception:
+            continue
+        if isinstance(value, str) and value.strip():
+            found[key] = value.strip()
+    return found
+
+
+def load_env(path: Path | None = None) -> dict[str, str]:
+    env_path = path or Path(os.environ.get("REPORTS_ENV", DEFAULT_ENV))
+    result: dict[str, str] = {}
+    if env_path.is_file():
+        result.update(_parse_env_file(env_path))
+    for key in CONNECTION_KEYS:
+        if result.get(key):
+            continue
+        value = os.environ.get(key, "").strip()
+        if value:
+            result[key] = value
+    if any(not result.get(key) for key in CONNECTION_KEYS):
+        for key, value in _connection_urls_from_secrets().items():
+            result.setdefault(key, value)
     return result
 
 
@@ -47,7 +83,10 @@ def parse_mysql_url(url: str, default_database: str) -> dict:
 def get_db_params(key: str, env_path: Path | None = None) -> dict:
     env = load_env(env_path)
     if key not in env:
-        raise KeyError(f"未在 .env 中找到 {key}")
+        raise KeyError(
+            f"未配置 {key}。本地写入 .env；Streamlit Cloud 在应用 Settings → Secrets 中设置 "
+            f'{key} = "mysql://用户:密码@主机:端口/库名"'
+        )
     default_db = DEFAULT_DATABASES.get(key, "mysql")
     return parse_mysql_url(env[key], default_database=default_db)
 
